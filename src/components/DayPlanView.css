@@ -1,0 +1,238 @@
+.day-plan-view {
+  padding: 2rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.day-plan-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.day-plan-subtitle {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.day-plan-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.day-plan-card {
+  background: white;
+  border-radius: 12px;
+  border: 2px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.day-plan-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.day-plan-card-today {
+  border-color: #667eea;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.day-plan-card-completed {
+  border-color: #4caf50;
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.02) 0%, rgba(76, 175, 80, 0.05) 100%);
+}
+
+.day-plan-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.day-plan-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.day-plan-number {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.day-plan-today-badge {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.day-plan-completed-badge {
+  background: #4caf50;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.day-plan-header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.day-plan-date {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.day-plan-progress {
+  background: #f0f0f0;
+  color: #333;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.day-plan-arrow {
+  font-size: 0.875rem;
+  color: #666;
+  transition: transform 0.3s ease;
+}
+
+.day-plan-arrow-expanded {
+  transform: rotate(180deg);
+}
+
+.day-plan-content {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.day-plan-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.day-plan-task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background: #f9f9f9;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.day-plan-task-item:hover {
+  background: #f0f0f0;
+  transform: translateX(4px);
+}
+
+.day-plan-task-completed {
+  background: #e8f5e9;
+  border-left: 3px solid #4caf50;
+}
+
+.day-plan-task-label {
+  font-weight: 600;
+  color: #667eea;
+  font-size: 0.9rem;
+  min-width: 70px;
+  flex-shrink: 0;
+}
+
+.day-plan-task-text {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.day-plan-task-completed .day-plan-task-text {
+  color: #4caf50;
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.day-plan-task-check {
+  color: #4caf50;
+  font-weight: bold;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.day-plan-jump-button {
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.day-plan-jump-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.day-plan-jump-button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .day-plan-view {
+    padding: 1.5rem 1rem;
+  }
+  
+  .day-plan-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  
+  .day-plan-header-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .day-plan-number {
+    font-size: 1.1rem;
+  }
+  
+  .day-plan-date {
+    font-size: 0.85rem;
+  }
+}
+
+
