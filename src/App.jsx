@@ -23,33 +23,28 @@ function App() {
   const [selectedDay, setSelectedDay] = useState(getTodayDayNumber());
   const [showDayPlan, setShowDayPlan] = useState(false);
   const [currentSection, setCurrentSection] = useState('dashboard');
-  const [selectedProblem, setSelectedProblem] = useState(null);
+  const [selectedProblemId, setSelectedProblemId] = useState(null);
   const [showProfile, setShowProfile] = useState(false);
 
   useEffect(() => {
     const savedUser = localStorage.getItem('currentUser');
     if (savedUser) {
-      const user = JSON.parse(savedUser);
-      setCurrentUser(user);
-      setIsAuthenticated(true);
+      try {
+        const user = JSON.parse(savedUser);
+        setCurrentUser(user);
+        setIsAuthenticated(true);
+      } catch (error) {
+        console.error('Failed to parse saved user:', error);
+        localStorage.removeItem('currentUser');
+      }
     }
   }, []);
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && data) {
       saveData(data);
     }
   }, [data, isAuthenticated]);
-
-  useEffect(() => {
-    saveData(data);
-  }, [data]);
-
-  useEffect(() => {
-    if (selectedProblem && currentSection !== 'practice') {
-      setCurrentSection('practice');
-    }
-  }, [selectedProblem, currentSection]);
 
   const handleUpdate = (day, dayData) => {
     setData(prev => ({
@@ -76,13 +71,12 @@ function App() {
   };
 
   const handleProblemSelect = (problemId) => {
+    setSelectedProblemId(problemId);
     setCurrentSection('practice');
-    setSelectedProblem(problemId);
   };
 
   const handleBackToProblems = () => {
-    setSelectedProblem(null);
-    setCurrentSection('practice');
+    setSelectedProblemId(null);
   };
 
   const handleLogin = (user) => {
@@ -103,7 +97,7 @@ function App() {
     setIsAuthenticated(false);
     setCurrentSection('dashboard');
     setSelectedProblem(null);
-  };
+  };Id
 
   const handleUserUpdate = (updatedUser) => {
     setCurrentUser(updatedUser);
@@ -118,10 +112,10 @@ function App() {
 
   const renderContent = () => {
     if (currentSection === 'practice') {
-      if (selectedProblem) {
+      if (selectedProblemId) {
         return (
           <ProblemDetail
-            problemId={selectedProblem}
+            problemId={selectedProblemId}
             onBack={handleBackToProblems}
           />
         );
@@ -173,7 +167,7 @@ function App() {
             className={`nav-main-button ${currentSection === 'dashboard' ? 'nav-main-button-active' : ''}`}
             onClick={() => {
               setCurrentSection('dashboard');
-              setSelectedProblem(null);
+              setSelectedProblemId(null);
               setShowProfile(false);
             }}
           >
@@ -181,14 +175,14 @@ function App() {
             <span>Dashboard</span>
           </button>
           <button
-            className={`nav-main-button ${currentSection === 'practice' || selectedProblem ? 'nav-main-button-active' : ''}`}
+            className={`nav-main-button ${currentSection === 'practice' || selectedProblemId ? 'nav-main-button-active' : ''}`}
             onClick={() => {
               if (currentSection !== 'practice') {
                 setCurrentSection('practice');
-                setSelectedProblem(null);
+                setSelectedProblemId(null);
                 setShowProfile(false);
-              } else if (selectedProblem) {
-                setSelectedProblem(null);
+              } else if (selectedProblemId) {
+                setSelectedProblemId(null);
               }
             }}
           >
@@ -199,7 +193,7 @@ function App() {
             className={`nav-main-button ${currentSection === 'notes' ? 'nav-main-button-active' : ''}`}
             onClick={() => {
               setCurrentSection('notes');
-              setSelectedProblem(null);
+              setSelectedProblemId(null);
               setShowProfile(false);
             }}
           >
