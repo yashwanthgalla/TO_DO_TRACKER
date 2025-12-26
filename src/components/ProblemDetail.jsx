@@ -14,7 +14,7 @@ function ProblemDetail({ problemId, onBack }) {
   const [runSignal, setRunSignal] = useState(0);
 
   useEffect(() => {
-    const prob = getProblemById(problemId);
+    const prob = getProblemById(Number(problemId));
     setProblem(prob);
     if (prob) {
       const savedCode = loadCode(problemId, language);
